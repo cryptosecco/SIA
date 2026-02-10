@@ -963,12 +963,12 @@ IMPORTANT: Return ONLY valid JSON. No preamble. No markdown code blocks unless i
 
 
                 {/* ONBOARDING */}
-                {!apiKey && view !== "settings" && (!user || !user.onboarded) && (
+                {view !== "settings" && (!user || !user.onboarded) && (
                     <OnboardingOverlay onComplete={handleOnboardingComplete} isMobile={isMobile} />
                 )}
 
                 {/* CHAT */}
-                {apiKey && view === "chat" && (
+                {view === "chat" && (
                     <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden" }}>
                         <div style={{ flex: 1, overflowY: "auto", padding: "14px 10px" }}>
                             {msgs.length === 0 && (
@@ -1055,7 +1055,7 @@ IMPORTANT: Return ONLY valid JSON. No preamble. No markdown code blocks unless i
                 )}
 
                 {/* PUBLISH */}
-                {apiKey && view === "publish" && (
+                {view === "publish" && (
                     <div style={{ flex: 1, overflowY: "auto", padding: "16px 16px 100px" }}>
                         {pubRes ? (
                             <div style={{ textAlign: "center", paddingTop: 40 }}>
@@ -1297,7 +1297,7 @@ IMPORTANT: Return ONLY valid JSON. No preamble. No markdown code blocks unless i
                 )}
 
                 {/* HISTORY */}
-                {apiKey && view === "history" && (
+                {view === "history" && (
                     <div style={{ flex: 1, overflowY: "auto", padding: 16 }}>
                         <Sec title={`Storico (${hist.length})`}>
                             {hist.length === 0 ? <p style={{ color: "#444", fontSize: 14 }}>Nessun post ancora.</p> : (
