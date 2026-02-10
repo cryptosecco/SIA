@@ -410,8 +410,8 @@ function Bubble({ role, text, images, onApprove, onDiscard, onRegenerate, send, 
                     )}
                 </div>
 
-                {/* VISIBILITY LOGIC: Now we can approve as soon as we have a structured master post */}
-                {!u && struct ? (
+                {/* VISIBILITY LOGIC: Now we can approve as soon as we have content (structured or not) */}
+                {!u && content ? (
                     <div style={{ display: "flex", gap: 8, marginTop: 12 }}>
                         <button onClick={() => onApprove(content, vars || {}, selVars, struct)} style={{ padding: "8px 16px", borderRadius: 10, border: "1px solid #22c55e44", background: "linear-gradient(135deg, #22c55e22, #22c55e11)", color: "#22c55e", fontSize: 13, cursor: "pointer", fontWeight: 700, display: "flex", alignItems: "center", gap: 6, transition: "all .2s", boxShadow: "0 4px 12px rgba(34,197,94,0.1)" }}>
                             <span>✨</span> Usa questi contenuti
