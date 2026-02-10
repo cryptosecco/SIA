@@ -550,6 +550,7 @@ function Sia() {
         const u = { name, onboarded: true };
         setUser(u);
         ST.set("pf_user", u);
+        if (!apiKey) setView("settings");
     };
 
     useEffect(() => {
@@ -962,7 +963,7 @@ IMPORTANT: Return ONLY valid JSON. No preamble. No markdown code blocks unless i
 
 
                 {/* ONBOARDING */}
-                {!apiKey && view !== "settings" && (
+                {!apiKey && view !== "settings" && (!user || !user.onboarded) && (
                     <OnboardingOverlay onComplete={handleOnboardingComplete} isMobile={isMobile} />
                 )}
 
