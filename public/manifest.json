@@ -1,0 +1,17 @@
+{
+    "name": "Sia",
+    "short_name": "Sia",
+    "description": "Female AI Assistant for Post Forge branding.",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#0f172a",
+    "theme_color": "#14b8a6",
+    "icons": [
+        {
+            "src": "/sia_logo.svg",
+            "sizes": "any",
+            "type": "image/svg+xml",
+            "purpose": "any"
+        }
+    ]
+}

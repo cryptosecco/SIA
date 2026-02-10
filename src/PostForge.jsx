@@ -7,6 +7,12 @@ import instagramRule from "./rules/platforms/instagram.md?raw";
 import fitlineCatalog from "./kb/fitline_catalogo.json";
 
 const SiaAvatar = ({ size = 36, expression = "neutral", style = {} }) => {
+    // 1. User-provided images (priority)
+    const imgSrc = `/avatars/sia_${expression === "default" ? "neutral" : expression}.png`;
+
+    // 2. Fallback SVG generation (Indian/Fashion/Teal theme)
+    const [useSvg, setUseSvg] = useState(false);
+
     // Skin Tone: Warm Indian/South Asian complexion
     const skinColor = "#D99E6B";
     const skinShadow = "#B98351";
@@ -69,6 +75,17 @@ const SiaAvatar = ({ size = 36, expression = "neutral", style = {} }) => {
         if (expression === "think") return <ellipse cx="56" cy="70" rx="3" ry="2" fill="none" stroke={lips} strokeWidth="2" />;
         return <path d="M48 70 Q56 72 64 70" fill="none" stroke={lips} strokeWidth="2.5" strokeLinecap="round" opacity="0.9" />;
     };
+
+    if (!useSvg) {
+        return (
+            <img
+                src={imgSrc}
+                alt={`Sia ${expression}`}
+                onError={() => setUseSvg(true)}
+                style={{ width: size, height: size, borderRadius: "50%", objectFit: "cover", border: "2px solid rgba(20,184,166,0.2)", ...style }}
+            />
+        );
+    }
 
     return (
         <div style={{ width: size, height: size, borderRadius: size * 0.38, overflow: "hidden", ...style }}>
@@ -218,7 +235,7 @@ const OnboardingOverlay = ({ onComplete }) => {
         {
             t: "Ciao, sono Sia ",
             d: "Il mio nome ha radici greche e significa saggezza, intesa come conoscenza profonda. Sono qui per aiutarti con i tuoi task quotidiani. Cominciamo?",
-            i: <SiaAvatar size={80} expression="smile" style={{ boxShadow: "0 0 40px rgba(20,184,166,0.5)", animation: "float 6s ease-in-out infinite", marginTop: 10, borderRadius: 28 }} />
+            i: <SiaAvatar size={160} expression="smile" style={{ boxShadow: "0 0 50px rgba(20,184,166,0.6)", animation: "float 6s ease-in-out infinite", marginTop: 20 }} />
         },
         {
             t: "Come ti chiami? 👋",
@@ -237,7 +254,7 @@ const OnboardingOverlay = ({ onComplete }) => {
         {
             t: "Conosco FitLine! 💪",
             d: "Sono preparata su FitLine e i suoi prodotti. Posso aiutarti a creare contenuti efficaci per promuoverli sui social e far crescere la tua attività.",
-            i: <SiaAvatar size={80} expression="wink" style={{ marginTop: 10, borderRadius: 28, boxShadow: "0 0 30px rgba(251,191,36,0.4)" }} />
+            i: <SiaAvatar size={160} expression="wink" style={{ marginTop: 20, boxShadow: "0 0 40px rgba(251,191,36,0.5)" }} />
         },
         {
             t: `Tutto pronto, ${name || "Amico"}! 🌟`,
@@ -250,7 +267,7 @@ const OnboardingOverlay = ({ onComplete }) => {
         <div style={{ position: "fixed", inset: 0, zIndex: 9999, background: "rgba(5,5,10,0.9)", backdropFilter: "blur(20px)", display: "flex", alignItems: "center", justifyContent: "center" }}>
             <div className="glass" style={{ width: "90%", maxWidth: 420, padding: 40, textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", gap: 16, opacity: fade ? 0 : 1, transform: fade ? "scale(0.95)" : "scale(1)", transition: "all .3s cubic-bezier(0.4, 0, 0.2, 1)" }}>
                 <div key={step} className="animate-slide-up-fade" style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 16, width: "100%" }}>
-                    {step === 0 && <SiaAvatar size={80} style={{ boxShadow: "0 0 40px rgba(20,184,166,0.5)", animation: "float 6s ease-in-out infinite", marginBottom: 10, borderRadius: 28 }} />}
+                    {step === 0 && <SiaAvatar size={160} expression="smile" style={{ boxShadow: "0 0 50px rgba(20,184,166,0.6)", animation: "float 6s ease-in-out infinite", marginBottom: 20 }} />}
                     <h2 style={{ fontSize: 28, fontWeight: 800, margin: 0, background: "linear-gradient(to right, #fff, #5eead4)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>{steps[step].t}</h2>
                     <p style={{ fontSize: 16, color: "#aaa", lineHeight: 1.6, margin: 0 }}>{steps[step].d}</p>
                     {step !== 0 && steps[step].i}
