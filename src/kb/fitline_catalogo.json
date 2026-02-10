@@ -1,0 +1,1069 @@
+{
+    "meta": {
+        "schema_version": "1.0",
+        "generated_at": "2026-02-09",
+        "locale": "it-IT",
+        "brand": "FitLine",
+        "company": "PM-International",
+        "global_characteristics": [
+            "Made in Germany",
+            "Produzione secondo criteri GMP (standard industria farmaceutica)",
+            "Qualità testata regolarmente e in modo indipendente da ELAB Analytic GmbH",
+            "Integratori alimentari elencati nella Cologne List® (impegno per sport pulito)",
+            "Tecnologia proprietaria NTC® (Nutrient Transport Concept) come messaggio/posizionamento"
+        ],
+        "data_quality": {
+            "coverage": "Catalogo prodotti + descrizioni/feature in forma normalizzata per LLM.",
+            "limits": [
+                "Questo dataset non include ingredienti/dosaggi completi per ogni SKU Italia; per quello servono le etichette italiane (PDF label) per ogni prodotto.",
+                "Le descrizioni sono parafrasi strutturate (non testo integrale dei materiali)."
+            ]
+        }
+    },
+    "sources": [
+        {
+            "source_id": "pm_it_products_page",
+            "type": "web",
+            "url": "https://filine.pm-international.com/it/it/i-nostri-prodotti/",
+            "notes": "Pagina ufficiale PM-International in italiano con posizionamento (qualità/sicurezza/NTC/GMP/ELAB/Cologne List)."
+        },
+        {
+            "source_id": "fitline_brochure_2024_en",
+            "type": "pdf",
+            "url": "https://site-241500.mozfiles.com/files/241500/EN_FL_ProductBrochure_2024.pdf",
+            "notes": "Brochure prodotti 2024 (EN) usata come base per inventario e per molti formati/pack e claim sintetici."
+        },
+        {
+            "source_id": "label_it_fitness_drink",
+            "type": "pdf_label",
+            "url": "https://www.pmebusiness.com/files/it/product_usage/FL.FitnessDrinkBox.LMIV.LBLS.4522.IT.P2_INTERNET.pdf",
+            "notes": "Esempio di etichetta italiana (Fitness-Drink)."
+        },
+        {
+            "source_id": "label_it_activize_lemon_lime",
+            "type": "pdf_label",
+            "url": "https://cdn.pm-international.com/product-labels/Activize-OxyplusLemon-Lime_0708062_IT.pdf",
+            "notes": "Esempio di etichetta italiana (Activize Oxyplus Lemon-Lime)."
+        },
+        {
+            "source_id": "label_it_generation50_set",
+            "type": "pdf_label",
+            "url": "https://cdn.pm-international.com/product-labels/Optimal-Set-50+_PCRC_9700162_IT.pdf",
+            "notes": "Esempio di etichetta italiana (set/uso Generation 50+)."
+        },
+        {
+            "source_id": "label_it_jointhealth",
+            "type": "pdf_label",
+            "url": "https://www.pmebusiness.com/files/it/product_usage/FL.JointhealthCan.LMIV.LBLS.2421.IT.P1_LOW.pdf",
+            "notes": "Esempio di etichetta italiana (Joint Health)."
+        },
+        {
+            "source_id": "label_it_topshape_optimumset",
+            "type": "pdf_label",
+            "url": "https://cdn.pm-international.com/product-labels/TopShape%20Optimumset_9700095_IT.pdf",
+            "notes": "Esempio di etichetta italiana (TopShape/Optimumset)."
+        }
+    ],
+    "taxonomy": {
+        "lines": [
+            "nutrition",
+            "fitline_skin",
+            "fitline_med"
+        ],
+        "categories": [
+            "basic_supply",
+            "sports_nutrition",
+            "weight_management",
+            "specialty_supplements",
+            "functional_foods",
+            "skincare",
+            "topical_care",
+            "bundles_sets"
+        ],
+        "fields": {
+            "description": "Cosa fa / perché esiste (parafrasi orientata a LLM).",
+            "characteristics": "Feature/claim/uso (high-level, non medico).",
+            "format": "Forma (bustine, barattolo, barrette, flacone, crema...).",
+            "pack": "Quantità tipica (ml/g/bars/portion bags/day supply) se nota da brochure."
+        }
+    },
+    "products": [
+        {
+            "id": "optimal_set",
+            "name": "FitLine Optimal-Set",
+            "line": "nutrition",
+            "category": "bundles_sets",
+            "format": "set",
+            "pack": "30 day supply (varie configurazioni)",
+            "description": "Set convenienza per coprire la routine quotidiana FitLine (mattino + sera), combinando prodotti della linea Basic Supply.",
+            "characteristics": [
+                "Posizionamento: 'foundation' quotidiana (routine strutturata).",
+                "Tipicamente include combinazioni di Basics/PowerCocktail, Activize e Restorate (a seconda del set).",
+                "Pensato per uso continuativo mensile."
+            ],
+            "sources": [
+                "fitline_brochure_2024_en",
+                "pm_it_products_page"
+            ]
+        },
+        {
+            "id": "optimal_set_family",
+            "name": "FitLine Optimal-Set Family",
+            "line": "nutrition",
+            "category": "bundles_sets",
+            "format": "set",
+            "pack": "bundle (formato famiglia)",
+            "description": "Bundle per più persone basato sulla routine quotidiana FitLine.",
+            "characteristics": [
+                "Orientato a consumo ricorrente.",
+                "Composizione basata su PowerCocktail + Restorate (in base al bundle)."
+            ],
+            "sources": [
+                "fitline_brochure_2024_en"
+            ]
+        },
+        {
+            "id": "powercocktail",
+            "name": "FitLine PowerCocktail",
+            "line": "nutrition",
+            "category": "basic_supply",
+            "format": "bustine (portion bags)",
+            "pack": "30 day supply",
+            "description": "Bevanda in polvere per la routine del mattino: approccio 'all-in-one' per micronutrienti + componente funzionale (energia/concentrazione nel posizionamento).",
+            "characteristics": [
+                "Uso tipico: mattino.",
+                "Posizionamento: supporto alla vita quotidiana e obiettivi sportivi (messaggio di linea).",
+                "Parte dei set (Tour/Optimal) in molte configurazioni."
+            ],
+            "sources": [
+                "fitline_brochure_2024_en",
+                "pm_it_products_page"
+            ]
+        },
+        {
+            "id": "basics",
+            "name": "FitLine Basics",
+            "line": "nutrition",
+            "category": "basic_supply",
+            "format": "bustine (portion bags)",
+            "pack": "30 day supply",
+            "description": "Formula in bustine posizionata come base quotidiana con focus su nutrizione e supporto generale (messaggio di linea).",
+            "characteristics": [
+                "Uso tipico: mattino, spesso in routine con Activize/Restorate.",
+                "Posizionamento: 'prendi i nutrienti di cui hai bisogno - tutti i giorni' (messaggio di linea)."
+            ],
+            "sources": [
+                "fitline_brochure_2024_en",
+                "pm_it_products_page"
+            ]
+        },
+        {
+            "id": "activize_oxyplus",
+            "name": "FitLine Activize Oxyplus",
+            "line": "nutrition",
+            "category": "basic_supply",
+            "format": "barattolo (polvere)",
+            "pack": "30 day supply (tipico)",
+            "description": "Prodotto in polvere posizionato per supportare energia e performance mentale nella routine quotidiana (messaggio di linea).",
+            "characteristics": [
+                "Spesso abbinato a Basics/PowerCocktail e Restorate nella routine.",
+                "Esistono varianti e label italiane per alcune edizioni (es. Lemon-Lime)."
+            ],
+            "sources": [
+                "fitline_brochure_2024_en",
+                "label_it_activize_lemon_lime"
+            ]
+        },
+        {
+            "id": "activize_sensitive",
+            "name": "FitLine Activize Sensitive",
+            "line": "nutrition",
+            "category": "basic_supply",
+            "format": "barattolo (polvere)",
+            "pack": "30 day supply (tipico)",
+            "description": "Variante Activize posizionata per chi cerca un profilo più 'delicato' (naming 'Sensitive').",
+            "characteristics": [
+                "Alternativa nel framework Basic Supply.",
+                "Scelta di linea in base a tolleranza/preferenze (da verificare su label IT per dettagli)."
+            ],
+            "sources": [
+                "fitline_brochure_2024_en"
+            ]
+        },
+        {
+            "id": "restorate_citrus",
+            "name": "FitLine Restorate Citrus",
+            "line": "nutrition",
+            "category": "basic_supply",
+            "format": "bustine o barattolo (dipende dallo SKU)",
+            "pack": "30 day supply (tipico)",
+            "description": "Bevanda serale posizionata per supporto mineral/vitaminico e recupero nella routine quotidiana.",
+            "characteristics": [
+                "Uso tipico: sera.",
+                "Spesso inclusa nei set (Optimal/Tour).",
+                "Gusto/variant: Citrus."
+            ],
+            "sources": [
+                "fitline_brochure_2024_en"
+            ]
+        },
+        {
+            "id": "restorate_exotic",
+            "name": "FitLine Restorate Exotic",
+            "line": "nutrition",
+            "category": "basic_supply",
+            "format": "bustine (portion bags)",
+            "pack": "30 day supply (tipico)",
+            "description": "Variante Restorate con gusto 'Exotic'.",
+            "characteristics": [
+                "Uso tipico: sera.",
+                "Alternativa di gusto/variant nella routine."
+            ],
+            "sources": [
+                "fitline_brochure_2024_en"
+            ]
+        },
+        {
+            "id": "powercocktail_junior",
+            "name": "FitLine PowerCocktail Junior",
+            "line": "nutrition",
+            "category": "basic_supply",
+            "format": "bustine (portion bags)",
+            "pack": "30 day supply (tipico)",
+            "description": "Versione 'Junior' del PowerCocktail, posizionata per target più giovane.",
+            "characteristics": [
+                "Prodotto dedicato al segmento kids/family (da verificare su label IT per età/dose)."
+            ],
+            "sources": [
+                "fitline_brochure_2024_en"
+            ]
+        },
+        {
+            "id": "generation_50_plus",
+            "name": "FitLine Generation 50+",
+            "line": "nutrition",
+            "category": "basic_supply",
+            "format": "bustine (portion bags)",
+            "pack": "30 day supply (tipico)",
+            "description": "Add-on posizionato per persone 50+, integrabile nella routine del mattino (spesso insieme a PowerCocktail).",
+            "characteristics": [
+                "Targeting: 50+.",
+                "Esiste documentazione label/set in italiano per uso combinato con PowerCocktail."
+            ],
+            "sources": [
+                "fitline_brochure_2024_en",
+                "label_it_generation50_set"
+            ]
+        },
+        {
+            "id": "fitness_drink",
+            "name": "FitLine Fitness-Drink",
+            "line": "nutrition",
+            "category": "sports_nutrition",
+            "format": "bustine (portion bags)",
+            "pack": "15 portion bags (tipico)",
+            "description": "Bevanda isotonica posizionata per allenamento/endurance (carboidrati + elettroliti nel posizionamento).",
+            "characteristics": [
+                "Uso: prima/durante/dopo attività di endurance (posizionamento).",
+                "Focus: supporto performance di endurance in esercizi prolungati (claim tipico per soluzioni carbo-elettrolitiche)."
+            ],
+            "sources": [
+                "fitline_brochure_2024_en",
+                "label_it_fitness_drink"
+            ]
+        },
+        {
+            "id": "whey",
+            "name": "FitLine Whey",
+            "line": "nutrition",
+            "category": "sports_nutrition",
+            "format": "polvere",
+            "pack": "30 day supply (tipico)",
+            "description": "Proteine del siero del latte in polvere per supporto al training (mantenimento/crescita massa muscolare nel posizionamento).",
+            "characteristics": [
+                "Prodotto ad alto contenuto proteico (posizionamento).",
+                "Uso tipico: post-allenamento o come integrazione proteica."
+            ],
+            "sources": [
+                "fitline_brochure_2024_en"
+            ]
+        },
+        {
+            "id": "proshape_amino",
+            "name": "FitLine ProShape® (Amino)",
+            "line": "nutrition",
+            "category": "sports_nutrition",
+            "format": "integratore (aminoacidi)",
+            "pack": "30 day supply (tipico)",
+            "description": "Prodotto ProShape focalizzato su aminoacidi per supporto performance e massa muscolare (posizionamento).",
+            "characteristics": [
+                "Pensato per sport/allenamento intenso.",
+                "Inquadrato nella linea ProShape."
+            ],
+            "sources": [
+                "fitline_brochure_2024_en"
+            ]
+        },
+        {
+            "id": "powermeal",
+            "name": "FitLine PowerMeal",
+            "line": "nutrition",
+            "category": "sports_nutrition",
+            "format": "barrette",
+            "pack": "12 bars",
+            "description": "Barretta posizionata come supporto nutrizionale pratico per training e vita attiva.",
+            "characteristics": [
+                "Formato on-the-go.",
+                "Pensata per supportare l'apporto energetico e proteico (posizionamento)."
+            ],
+            "sources": [
+                "fitline_brochure_2024_en"
+            ]
+        },
+        {
+            "id": "protein_bar",
+            "name": "FitLine Protein",
+            "line": "nutrition",
+            "category": "sports_nutrition",
+            "format": "barrette proteiche",
+            "pack": "10 bars",
+            "description": "Barretta proteica per supporto allenamento, con focus su mantenimento/crescita massa muscolare (posizionamento).",
+            "characteristics": [
+                "Snack proteico (posizionamento sport).",
+                "Formato multipack."
+            ],
+            "sources": [
+                "fitline_brochure_2024_en"
+            ]
+        },
+        {
+            "id": "protein_max_bar",
+            "name": "FitLine Protein Max",
+            "line": "nutrition",
+            "category": "sports_nutrition",
+            "format": "barrette proteiche",
+            "pack": "10 bars",
+            "description": "Versione 'Max' con posizionamento high-protein per training.",
+            "characteristics": [
+                "Claim tipico di linea: alto contenuto proteico (da verificare su label IT per %).",
+                "Formato multipack."
+            ],
+            "sources": [
+                "fitline_brochure_2024_en"
+            ]
+        },
+        {
+            "id": "activize_2go_bar",
+            "name": "FitLine Activize 2go",
+            "line": "nutrition",
+            "category": "sports_nutrition",
+            "format": "barrette",
+            "pack": "12 bars",
+            "description": "Barretta on-the-go legata al posizionamento Activize (energia/focus).",
+            "characteristics": [
+                "Formato pratico per consumo fuori casa.",
+                "Allineata al tema 'activize' della linea."
+            ],
+            "sources": [
+                "fitline_brochure_2024_en"
+            ]
+        },
+        {
+            "id": "joint_health",
+            "name": "FitLine Joint Health",
+            "line": "nutrition",
+            "category": "specialty_supplements",
+            "format": "polvere (barattolo)",
+            "pack": "270 g (tipico)",
+            "description": "Integratore posizionato per supporto articolazioni/tessuti connettivi (messaggio di linea).",
+            "characteristics": [
+                "Prodotto 'specific need'.",
+                "Spesso venduto anche come set con un gel topico (FitLine med Active Gel).",
+                "Esiste label italiana (PDF) per dettagli di avvertenze/uso."
+            ],
+            "sources": [
+                "fitline_brochure_2024_en",
+                "label_it_jointhealth"
+            ]
+        },
+        {
+            "id": "proshape_all_in_1",
+            "name": "FitLine ProShape All-in-1",
+            "line": "nutrition",
+            "category": "weight_management",
+            "format": "polvere (barattolo)",
+            "pack": "13 complete meals (tipico)",
+            "description": "Sostituto del pasto in polvere (meal replacement) posizionato per gestione peso e praticità.",
+            "characteristics": [
+                "Uso tipico: sostituzione pasto secondo regole del prodotto.",
+                "Disponibile in più gusti (SKU separati)."
+            ],
+            "variants": [
+                "Mousse au Chocolat",
+                "Bourbon Vanille",
+                "Cocos",
+                "Wild Berries",
+                "Chocolate",
+                "Mango"
+            ],
+            "sources": [
+                "fitline_brochure_2024_en"
+            ]
+        },
+        {
+            "id": "proshape_2go",
+            "name": "FitLine ProShape 2 go",
+            "line": "nutrition",
+            "category": "weight_management",
+            "format": "barrette (meal replacement bar)",
+            "pack": "15 bars / 12 bars (dipende dalla variante)",
+            "description": "Barretta sostitutiva del pasto (on-the-go) per gestione peso/ritmi serrati.",
+            "characteristics": [
+                "Formato pratico.",
+                "Varianti incluse in catalogo (Choco Slim, White Choco Slim, Choco Crunch Plant-Based Protein)."
+            ],
+            "variants": [
+                "Choco Slim",
+                "White Choco Slim",
+                "Choco Crunch (Plant-Based Protein)"
+            ],
+            "sources": [
+                "fitline_brochure_2024_en"
+            ]
+        },
+        {
+            "id": "cell_set",
+            "name": "FitLine Cell Set",
+            "line": "nutrition",
+            "category": "bundles_sets",
+            "format": "set (capsule + lozione)",
+            "pack": "60 capsules + 125 ml (tipico)",
+            "description": "Set combinato per cura corpo: integrazione + prodotto topico per aspetto/tonicità (posizionamento).",
+            "characteristics": [
+                "Composto da FitLine Cell Capsules e FitLine med Cell Lotion.",
+                "Approccio combinato inside/outside (posizionamento di linea)."
+            ],
+            "sources": [
+                "fitline_brochure_2024_en",
+                "pm_it_products_page"
+            ]
+        },
+        {
+            "id": "microsolve_q10_plus",
+            "name": "FitLine microSolve®+ Q10 Plus",
+            "line": "nutrition",
+            "category": "specialty_supplements",
+            "format": "liquido (flacone)",
+            "pack": "30 day supply (tipico)",
+            "description": "Integratore con Coenzima Q10 con posizionamento su 'cellular nutrition' e delivery avanzato (microSolve).",
+            "characteristics": [
+                "Posizionamento: bio-disponibilità/trasporto (messaggio microSolve).",
+                "Formato liquido."
+            ],
+            "sources": [
+                "fitline_brochure_2024_en"
+            ]
+        },
+        {
+            "id": "microsolve_omega3",
+            "name": "FitLine microSolve®+ Omega 3",
+            "line": "nutrition",
+            "category": "specialty_supplements",
+            "format": "liquido (flacone)",
+            "pack": "30 day supply (tipico)",
+            "description": "Omega 3 in formato liquido con posizionamento su qualità e delivery microSolve+.",
+            "characteristics": [
+                "Posizionamento: supporto funzioni legate a Omega-3 (da verificare su label IT per claim consentiti).",
+                "Formato liquido."
+            ],
+            "sources": [
+                "fitline_brochure_2024_en"
+            ]
+        },
+        {
+            "id": "microsolve_heartduo",
+            "name": "FitLine microSolve®+ HeartDuo",
+            "line": "nutrition",
+            "category": "specialty_supplements",
+            "format": "liquido (flacone)",
+            "pack": "30 day supply (tipico)",
+            "description": "Combinazione posizionata su supporto cuore/cervello (tema 'HeartDuo') con delivery microSolve+.",
+            "characteristics": [
+                "Posizionamento: supporto funzioni cardiovascolari/cognitive (da verificare su label IT per claim).",
+                "Formato liquido."
+            ],
+            "sources": [
+                "fitline_brochure_2024_en"
+            ]
+        },
+        {
+            "id": "microsolve_lutein_vitA",
+            "name": "FitLine microSolve® Lutein + Vitamin A",
+            "line": "nutrition",
+            "category": "specialty_supplements",
+            "format": "liquido (flacone)",
+            "pack": "30 ml (tipico)",
+            "description": "Prodotto microSolve posizionato per supporto vista (luteina + vitamina A nel naming).",
+            "characteristics": [
+                "Focus: eye health (posizionamento).",
+                "Formato liquido."
+            ],
+            "sources": [
+                "fitline_brochure_2024_en"
+            ]
+        },
+        {
+            "id": "microsolve_isoflavon",
+            "name": "FitLine microSolve® Isoflavon",
+            "line": "nutrition",
+            "category": "specialty_supplements",
+            "format": "liquido (flacone)",
+            "pack": "100 ml (tipico)",
+            "description": "Prodotto microSolve posizionato su supporto legato a isoflavoni (tema maturità/benessere).",
+            "characteristics": [
+                "Targeting: segmento adult/mature (posizionamento).",
+                "Formato liquido."
+            ],
+            "sources": [
+                "fitline_brochure_2024_en"
+            ]
+        },
+        {
+            "id": "antioxy_zellschutz",
+            "name": "FitLine Antioxy (Zellschutz)",
+            "line": "nutrition",
+            "category": "specialty_supplements",
+            "format": "polvere (drink)",
+            "pack": "60 servings (tipico)",
+            "description": "Drink posizionato su protezione cellulare/antiossidanti (tema 'Zellschutz').",
+            "characteristics": [
+                "Posizionamento: difese/antiossidanti (high-level).",
+                "Formato multi-porzione."
+            ],
+            "sources": [
+                "fitline_brochure_2024_en"
+            ]
+        },
+        {
+            "id": "ib5",
+            "name": "FitLine IB5",
+            "line": "nutrition",
+            "category": "specialty_supplements",
+            "format": "soluzione pronta (on-the-go)",
+            "pack": "25 ml (tipico)",
+            "description": "Formato tascabile posizionato come supporto alle difese (tema 'IB5').",
+            "characteristics": [
+                "On-the-go / pocket size.",
+                "Uso rapido rispetto a prodotti in polvere."
+            ],
+            "sources": [
+                "fitline_brochure_2024_en"
+            ]
+        },
+        {
+            "id": "d_drink",
+            "name": "FitLine D-Drink",
+            "line": "nutrition",
+            "category": "specialty_supplements",
+            "format": "bustine (programma)",
+            "pack": "14 portion bags (tipico)",
+            "description": "Programma a bustine posizionato su supporto metabolico (tema 'D-Drink').",
+            "characteristics": [
+                "Formato: programma (14 giorni tipico).",
+                "Targeting: specific need."
+            ],
+            "sources": [
+                "fitline_brochure_2024_en"
+            ]
+        },
+        {
+            "id": "c_balance",
+            "name": "FitLine C-Balance",
+            "line": "nutrition",
+            "category": "specialty_supplements",
+            "format": "bustine (portion bags)",
+            "pack": "30 portion bags (tipico)",
+            "description": "Prodotto a bustine posizionato su bilanciamento metabolismo carboidrati/valori glicemici (tema 'C-Balance').",
+            "characteristics": [
+                "Targeting: specific need.",
+                "Formato: 30 porzioni."
+            ],
+            "sources": [
+                "fitline_brochure_2024_en"
+            ]
+        },
+        {
+            "id": "basen_plus",
+            "name": "FitLine Basen Plus",
+            "line": "nutrition",
+            "category": "specialty_supplements",
+            "format": "integratore (daily supply)",
+            "pack": "30 day supply (tipico)",
+            "description": "Prodotto posizionato su equilibrio acido-base (tema 'Basen').",
+            "characteristics": [
+                "Targeting: specific need.",
+                "Uso continuativo (mensile)."
+            ],
+            "sources": [
+                "fitline_brochure_2024_en"
+            ]
+        },
+        {
+            "id": "munogen",
+            "name": "FitLine Munogen",
+            "line": "nutrition",
+            "category": "specialty_supplements",
+            "format": "integratore (daily supply)",
+            "pack": "30 day supply (tipico)",
+            "description": "Prodotto posizionato su energia/stanchezza e supporto emopoiesi (tema 'Munogen').",
+            "characteristics": [
+                "Targeting: specific need.",
+                "Uso continuativo (mensile)."
+            ],
+            "sources": [
+                "fitline_brochure_2024_en"
+            ]
+        },
+        {
+            "id": "men_plus",
+            "name": "FitLine Men+",
+            "line": "nutrition",
+            "category": "specialty_supplements",
+            "format": "integratore (daily supply)",
+            "pack": "30 day supply (tipico)",
+            "description": "Integratore posizionato per esigenze maschili (tema 'Men+').",
+            "characteristics": [
+                "Targeting: men.",
+                "Uso continuativo (mensile)."
+            ],
+            "sources": [
+                "fitline_brochure_2024_en"
+            ]
+        },
+        {
+            "id": "beauty",
+            "name": "FitLine Beauty",
+            "line": "nutrition",
+            "category": "specialty_supplements",
+            "format": "integratore (daily supply)",
+            "pack": "30 day supply",
+            "description": "Integratore 'beauty from inside out' posizionato per pelle/capelli/unghie (tema beauty).",
+            "characteristics": [
+                "Posizionamento: bellezza dall'interno (skin/hair/nails).",
+                "Uso continuativo (mensile)."
+            ],
+            "sources": [
+                "fitline_brochure_2024_en",
+                "pm_it_products_page"
+            ]
+        },
+        {
+            "id": "feel_good_yoghurt",
+            "name": "FitLine Feel Good Yoghurt",
+            "line": "nutrition",
+            "category": "functional_foods",
+            "format": "starter (bustine)",
+            "pack": "sachets (per preparazione yogurt)",
+            "description": "Colture/soluzione per preparazione yogurt (tema 'Feel Good Yoghurt').",
+            "characteristics": [
+                "Prodotto 'functional food' più che supplemento classico.",
+                "Formato: bustine starter."
+            ],
+            "sources": [
+                "fitline_brochure_2024_en"
+            ]
+        },
+        {
+            "id": "feel_good_yoghurt_drink",
+            "name": "FitLine Feel Good Yoghurt-Drink",
+            "line": "nutrition",
+            "category": "functional_foods",
+            "format": "starter (bustine)",
+            "pack": "sachets (drink yogurt)",
+            "description": "Variante orientata a bevanda yogurt (starter).",
+            "characteristics": [
+                "Functional food / preparazione.",
+                "Formato: bustine starter."
+            ],
+            "sources": [
+                "fitline_brochure_2024_en"
+            ]
+        },
+        {
+            "id": "herbaslim_tea",
+            "name": "FitLine Herbaslim Tea",
+            "line": "nutrition",
+            "category": "functional_foods",
+            "format": "tè (sfuso)",
+            "pack": "100 g (tipico)",
+            "description": "Tè/infuso a base di erbe (tema 'Herbaslim').",
+            "characteristics": [
+                "Formato: tè sfuso.",
+                "Prodotto lifestyle/benessere."
+            ],
+            "sources": [
+                "fitline_brochure_2024_en"
+            ]
+        },
+        {
+            "id": "fruit_bar",
+            "name": "FitLine Fruit Bar",
+            "line": "nutrition",
+            "category": "functional_foods",
+            "format": "barrette",
+            "pack": "15 bars (tipico)",
+            "description": "Snack in formato barretta (tema 'Fruit Bar').",
+            "characteristics": [
+                "On-the-go.",
+                "Lifestyle/benessere."
+            ],
+            "sources": [
+                "fitline_brochure_2024_en"
+            ]
+        },
+        {
+            "id": "activize_power_drink",
+            "name": "FitLine Activize® Power Drink",
+            "line": "nutrition",
+            "category": "functional_foods",
+            "format": "ready-to-drink",
+            "pack": "6 x 250 ml (tipico)",
+            "description": "Bevanda pronta (RTD) legata al tema Activize (energia/attivazione nel posizionamento).",
+            "characteristics": [
+                "Formato: bottiglie pronte.",
+                "On-the-go."
+            ],
+            "sources": [
+                "fitline_brochure_2024_en"
+            ]
+        },
+        {
+            "id": "microsolve_hair_plus_oral",
+            "name": "FitLine microSolve® Hair+",
+            "line": "nutrition",
+            "category": "specialty_supplements",
+            "format": "liquido (orale)",
+            "pack": "100 ml (tipico)",
+            "description": "Soluzione orale Hair+ con posizionamento su supporto capelli (tema Hair+).",
+            "characteristics": [
+                "Approccio 'program' spesso combinato con trattamento topico med Hair+.",
+                "Targeting: hair care."
+            ],
+            "sources": [
+                "fitline_brochure_2024_en"
+            ]
+        },
+        {
+            "id": "microsolve_hair_plus_topical",
+            "name": "FitLine med microSolve® Hair+",
+            "line": "fitline_med",
+            "category": "topical_care",
+            "format": "topico (trattamento)",
+            "pack": "100 ml (tipico)",
+            "description": "Trattamento topico Hair+ da abbinare alla soluzione orale Hair+ (posizionamento).",
+            "characteristics": [
+                "Approccio combinato inside/outside (posizionamento).",
+                "Targeting: hair care."
+            ],
+            "sources": [
+                "fitline_brochure_2024_en",
+                "pm_it_products_page"
+            ]
+        },
+        {
+            "id": "skin_4ever",
+            "name": "FitLine skin 4ever",
+            "line": "fitline_skin",
+            "category": "skincare",
+            "format": "crema viso",
+            "pack": "50 ml (tipico)",
+            "description": "Trattamento viso 24 ore posizionato contro i segni dell'età (anti-age).",
+            "characteristics": [
+                "Skincare premium (posizionamento).",
+                "Parte di set come Triple Lift (con Ultimate Young)."
+            ],
+            "sources": [
+                "fitline_brochure_2024_en",
+                "pm_it_products_page"
+            ]
+        },
+        {
+            "id": "skin_ultimate_young",
+            "name": "FitLine skin Ultimate Young",
+            "line": "fitline_skin",
+            "category": "skincare",
+            "format": "siero",
+            "pack": "15 ml (tipico)",
+            "description": "Siero viso posizionato per effetto lifting rapido (messaggio di linea).",
+            "characteristics": [
+                "Prodotto 'hero' per effetto immediato (posizionamento).",
+                "Componente del Triple Lift Set."
+            ],
+            "sources": [
+                "fitline_brochure_2024_en",
+                "pm_it_products_page"
+            ]
+        },
+        {
+            "id": "skin_triple_lift_set",
+            "name": "FitLine Triple Lift Set",
+            "line": "fitline_skin",
+            "category": "bundles_sets",
+            "format": "set",
+            "pack": "bundle (Ultimate Young + 4ever)",
+            "description": "Set skincare posizionato su effetti immediati, medi e di lungo periodo (messaggio di linea).",
+            "characteristics": [
+                "Composto da Ultimate Young e 4ever.",
+                "Approccio combinato (posizionamento)."
+            ],
+            "sources": [
+                "pm_it_products_page"
+            ]
+        },
+        {
+            "id": "skin_activize_serum",
+            "name": "FitLine skin Activize Serum",
+            "line": "fitline_skin",
+            "category": "skincare",
+            "format": "siero",
+            "pack": "30 ml (tipico)",
+            "description": "Siero viso posizionato per vitalità/energia della pelle (tema 'Activize').",
+            "characteristics": [
+                "Skincare (posizionamento).",
+                "Complementare alla routine viso."
+            ],
+            "sources": [
+                "fitline_brochure_2024_en"
+            ]
+        },
+        {
+            "id": "skin_eye_care",
+            "name": "FitLine skin Eye Care",
+            "line": "fitline_skin",
+            "category": "skincare",
+            "format": "contorno occhi",
+            "pack": "15 ml (tipico)",
+            "description": "Trattamento contorno occhi della linea FitLine skin.",
+            "characteristics": [
+                "Target: area occhi.",
+                "Complementare alla routine anti-age."
+            ],
+            "sources": [
+                "fitline_brochure_2024_en"
+            ]
+        },
+        {
+            "id": "skin_hydrating_shot_mask",
+            "name": "FitLine skin Hydrating-Shot Mask",
+            "line": "fitline_skin",
+            "category": "skincare",
+            "format": "maschere",
+            "pack": "4 x 25 ml (tipico)",
+            "description": "Maschere idratanti in multipack per boost di idratazione (posizionamento).",
+            "characteristics": [
+                "Formato: set maschere.",
+                "Uso: trattamento periodico."
+            ],
+            "sources": [
+                "fitline_brochure_2024_en"
+            ]
+        },
+        {
+            "id": "skin_cleansing_lotion",
+            "name": "FitLine skin Cleansing Lotion",
+            "line": "fitline_skin",
+            "category": "skincare",
+            "format": "detergente",
+            "pack": "200 ml (tipico)",
+            "description": "Detergente viso della routine FitLine skin.",
+            "characteristics": [
+                "Step: cleansing.",
+                "Abbinabile a Tonic."
+            ],
+            "sources": [
+                "fitline_brochure_2024_en"
+            ]
+        },
+        {
+            "id": "skin_tonic",
+            "name": "FitLine skin Tonic",
+            "line": "fitline_skin",
+            "category": "skincare",
+            "format": "tonico",
+            "pack": "200 ml (tipico)",
+            "description": "Tonico viso della routine FitLine skin.",
+            "characteristics": [
+                "Step: toning.",
+                "Abbinabile a Cleansing Lotion."
+            ],
+            "sources": [
+                "fitline_brochure_2024_en"
+            ]
+        },
+        {
+            "id": "skin_young_care_set",
+            "name": "FitLine skin Young Care Set",
+            "line": "fitline_skin",
+            "category": "bundles_sets",
+            "format": "set",
+            "pack": "bundle",
+            "description": "Set skincare 'Young Care' (segmento giovane), composto da più step di routine.",
+            "characteristics": [
+                "Componenti: Cleansing Foam, Peeling-Mask, Balancing Cream.",
+                "Posizionamento: routine completa per pelle giovane."
+            ],
+            "sources": [
+                "fitline_brochure_2024_en"
+            ]
+        },
+        {
+            "id": "men_face",
+            "name": "FitLine Men Face",
+            "line": "fitline_skin",
+            "category": "skincare",
+            "format": "crema viso uomo",
+            "pack": "50 ml (tipico)",
+            "description": "Prodotto viso dedicato uomo (tema 'Men Face').",
+            "characteristics": [
+                "Targeting: men's grooming.",
+                "Skincare routine semplificata (posizionamento)."
+            ],
+            "sources": [
+                "fitline_brochure_2024_en"
+            ]
+        },
+        {
+            "id": "skin_2in1_shower_gel_men",
+            "name": "FitLine skin 2-in-1 Shower Gel (Men)",
+            "line": "fitline_skin",
+            "category": "skincare",
+            "format": "gel doccia 2-in-1",
+            "pack": "200 ml (tipico)",
+            "description": "Detergente corpo/capelli 2-in-1 dedicato uomo (posizionamento).",
+            "characteristics": [
+                "2-in-1: corpo + capelli.",
+                "Formato: 200 ml."
+            ],
+            "sources": [
+                "fitline_brochure_2024_en"
+            ]
+        },
+        {
+            "id": "med_q10_oxy_repair_face",
+            "name": "FitLine med Q10 Oxy Repair Face",
+            "line": "fitline_med",
+            "category": "topical_care",
+            "format": "cura viso",
+            "pack": "50 ml (tipico)",
+            "description": "Cura viso 24 ore per pelle stressata e sensibile (posizionamento).",
+            "characteristics": [
+                "Target: pelle sensibile/stressata.",
+                "Linea: FitLine med."
+            ],
+            "sources": [
+                "fitline_brochure_2024_en"
+            ]
+        },
+        {
+            "id": "med_q10_oxy_repair_body",
+            "name": "FitLine med Q10 Oxy Repair Body",
+            "line": "fitline_med",
+            "category": "topical_care",
+            "format": "lozione corpo",
+            "pack": "150 ml (tipico)",
+            "description": "Lozione corpo per pelle disidratata e sensibile (posizionamento).",
+            "characteristics": [
+                "Target: pelle secca/sensibile.",
+                "Linea: FitLine med."
+            ],
+            "sources": [
+                "fitline_brochure_2024_en"
+            ]
+        },
+        {
+            "id": "med_q10_oxy_repair_hands",
+            "name": "FitLine med Q10 Oxy Repair Hands",
+            "line": "fitline_med",
+            "category": "topical_care",
+            "format": "crema mani",
+            "pack": "75 ml (tipico)",
+            "description": "Crema mani della linea Q10 Oxy Repair (posizionamento: riparazione/comfort).",
+            "characteristics": [
+                "Target: mani.",
+                "Linea: FitLine med."
+            ],
+            "sources": [
+                "fitline_brochure_2024_en"
+            ]
+        },
+        {
+            "id": "med_q10_oxy_repair_intensive",
+            "name": "FitLine med Q10 Oxy Repair Intensive",
+            "line": "fitline_med",
+            "category": "topical_care",
+            "format": "trattamento intensivo",
+            "pack": "15 ml (tipico)",
+            "description": "Trattamento intensivo della linea Q10 Oxy Repair (posizionamento).",
+            "characteristics": [
+                "Formato piccolo / trattamento mirato.",
+                "Linea: FitLine med."
+            ],
+            "sources": [
+                "fitline_brochure_2024_en"
+            ]
+        },
+        {
+            "id": "med_clear_skin",
+            "name": "FitLine med Clear Skin",
+            "line": "fitline_med",
+            "category": "topical_care",
+            "format": "trattamento",
+            "pack": "30 ml (tipico)",
+            "description": "Trattamento mirato per pelle con imperfezioni (posizionamento).",
+            "characteristics": [
+                "Target: clear skin / impurità.",
+                "Linea: FitLine med."
+            ],
+            "sources": [
+                "fitline_brochure_2024_en"
+            ]
+        },
+        {
+            "id": "med_active_gel",
+            "name": "FitLine med Active Gel",
+            "line": "fitline_med",
+            "category": "topical_care",
+            "format": "gel",
+            "pack": "150 ml (tipico)",
+            "description": "Gel topico posizionato per supporto/comfort muscolare-articolare (posizionamento).",
+            "characteristics": [
+                "Usato anche in bundle con Joint Health (Joint-Health Set).",
+                "Linea: FitLine med."
+            ],
+            "sources": [
+                "fitline_brochure_2024_en"
+            ]
+        },
+        {
+            "id": "med_cell_lotion",
+            "name": "FitLine med Cell Lotion",
+            "line": "fitline_med",
+            "category": "topical_care",
+            "format": "lozione corpo",
+            "pack": "125 ml (tipico)",
+            "description": "Lozione corpo posizionata per aspetto/tonicità (tema 'Cell').",
+            "characteristics": [
+                "Parte del Cell Set con Cell Capsules.",
+                "Linea: FitLine med."
+            ],
+            "sources": [
+                "fitline_brochure_2024_en"
+            ]
+        }
+    ],
+    "next_steps_to_make_it_strictly_italy_complete": [
+        "Raccolta di tutte le etichette italiane (PDF label) per ogni SKU in vendita in Italia (Nutrition + Skin + Med).",
+        "Parsing strutturato di: ingredienti, allergeni, valori nutrizionali, avvertenze, modalità d'uso e claim consentiti per ciascun prodotto.",
+        "Allineamento SKU/pack reali Italia (formati e prezzi possono variare per mercato)."
+    ]
+}
