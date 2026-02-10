@@ -481,6 +481,7 @@ function Sia() {
     const [showPrompts, setShowPrompts] = useState(false);
     const [sTab, setSTab] = useState("content");
     const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+    const [condensedMode, setCondensedMode] = useState(true);
 
     useEffect(() => {
         const h = () => setIsMobile(window.innerWidth < 768);
@@ -664,12 +665,25 @@ function Sia() {
 
         systemMsg += `\n\n[CONTEXT]
 Target Platforms for this response: ${platformsToGen.join(", ") || "None (Generate Master only)"}.
+
+MODE: ${condensedMode ? "CONDENSED (PUNCHLINE)" : "STRUCTURED (FULL)"}
+${condensedMode ? `
+OUTPUT FORMAT: Return a valid JSON object: {"main": "Your short post content here..."}
+INSTRUCTION: Scrivi un post breve, incisivo e diretto. 
+- Max 280 caratteri o 3 righe.
+- Niente filler, vai dritto al punto.
+- Stile "Twitter/X" o "LinkedIn one-liner".
+- NON usare chiavi "structured". Solo "main".
+` : `
 OUTPUT FORMAT: Return a valid JSON object.
 - If more info is needed: {"discovery": true, "questions": ["Question 1", "Question 2"]}
 - If generating content: {"structured": {...}, "variations": {${platformsToGen.map(p => `"${p}": "..."`).join(", ")}}}
 
 IMPORTANT: Se non sono specificate 'Target Platforms', non generare la chiave 'variations' o lasciala vuota. 
-Concentricrati solo sul 'structured' (MASTER POST).
+Concentrati solo sul 'structured' (MASTER POST).
+`}
+
+IMPORTANT: Return ONLY valid JSON. No preamble. No markdown code blocks unless inside the JSON string.
 `;
 
         if (sysPrompt) systemMsg += "\n\n[USER CUSTOM INSTRUCTIONS]\n" + sysPrompt;
@@ -1023,6 +1037,7 @@ Concentricrati solo sul 'structured' (MASTER POST).
 
                             <div className="glass" style={{ display: "flex", gap: 12, alignItems: "flex-end", background: "rgba(26,26,36,0.9)", padding: "10px 12px", borderRadius: 28, border: "1px solid rgba(255,255,255,0.1)", boxShadow: "0 12px 48px rgba(0,0,0,0.4), 0 0 0 1px rgba(99,102,241,0.1)", maxWidth: 800, margin: "0 auto", width: "100%", position: "relative", backdropFilter: "blur(24px)" }} onClick={() => tArea.current?.focus()}>
                                 <button onClick={() => setShowPrompts(!showPrompts)} className="hover-lift" style={{ width: 42, height: 42, borderRadius: 21, border: "none", background: showPrompts ? "rgba(99,102,241,0.2)" : "rgba(255,255,255,0.05)", color: showPrompts ? "#a5b4fc" : "#888", cursor: "pointer", fontSize: 18, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>✨</button>
+                                <button onClick={() => setCondensedMode(!condensedMode)} className="hover-lift" style={{ width: 42, height: 42, borderRadius: 21, border: "none", background: condensedMode ? "rgba(16, 185, 129, 0.2)" : "rgba(255,255,255,0.05)", color: condensedMode ? "#10b981" : "#888", cursor: "pointer", fontSize: 18, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }} title={condensedMode ? "Modalità Sintetica (Punchline)" : "Modalità Strutturata"}>{condensedMode ? "⚡" : "🏗️"}</button>
                                 <button onClick={() => fInput.current?.click()} className="hover-lift" style={{ width: 42, height: 42, borderRadius: 21, border: "none", background: "rgba(255,255,255,0.05)", color: "#888", cursor: "pointer", fontSize: 18, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>📎</button>
 
                                 <input ref={fInput} type="file" multiple accept="image/*,video/*,text/*,.md,.csv" onChange={addF} hidden />
@@ -1482,23 +1497,31 @@ Concentricrati solo sul 'structured' (MASTER POST).
 function safeParseJSON(text) {
     if (!text || typeof text !== 'string') return {};
     try {
-        let clean = text;
-        const match = text.match(/```json\s*([\s\S]*?)```/) || text.match(/```\s*([\s\S]*?)```/);
-        if (match) clean = match[1];
+        let clean = text.trim();
 
-        // 1. Try standard parse (best for formatting)
+        // 0. Try standard parse first (fastest)
         try { return JSON.parse(clean); } catch { }
 
-        // 2. Try eval (handles trailing commas)
-        try { return (new Function("return (" + clean + ")"))(); } catch { }
+        // 1. Markdown code blocks
+        const match = text.match(/```(?:json)?\s*([\s\S]*?)```/);
+        if (match) {
+            clean = match[1].trim();
+            try { return JSON.parse(clean); } catch { }
+        }
 
-        // 3. Fallback: Flatten newlines (Nuclear option: guaranteed parse but loses formatting)
-        // This handles cases with literal newlines inside strings that break standard JSON/eval
+        // 2. Regex to find the first { and last } (Naive extraction)
+        const jsonMatch = text.match(/(\{[\s\S]*\})/);
+        if (jsonMatch) {
+            clean = jsonMatch[1];
+            try { return JSON.parse(clean); } catch { }
+        }
+
+        // 3. Fallback: Flatten newlines (Nuclear option)
         const flattened = clean.replace(/[\n\r\t]/g, " ");
         try { return JSON.parse(flattened); } catch { }
 
-        // 4. Fallback: Flatten + eval (Nuclear + trailing commas)
-        try { return (new Function("return (" + flattened + ")"))(); } catch { }
+        // 4. Eval (Dangerous but effective for loose JSON)
+        try { return (new Function("return (" + clean + ")"))(); } catch { }
 
         return {};
     } catch {
