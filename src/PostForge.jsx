@@ -214,7 +214,7 @@ const StructBlock = ({ l, t, c }) => t ? (
 ) : null;
 
 
-const OnboardingOverlay = ({ onComplete }) => {
+const OnboardingOverlay = ({ onComplete, isMobile }) => {
     const [step, setStep] = useState(0);
     const [name, setName] = useState("");
     const [fade, setFade] = useState(false);
@@ -265,11 +265,11 @@ const OnboardingOverlay = ({ onComplete }) => {
 
     return (
         <div style={{ position: "fixed", inset: 0, zIndex: 9999, background: "rgba(5,5,10,0.9)", backdropFilter: "blur(20px)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <div className="glass" style={{ width: "90%", maxWidth: 420, padding: 40, textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", gap: 16, opacity: fade ? 0 : 1, transform: fade ? "scale(0.95)" : "scale(1)", transition: "all .3s cubic-bezier(0.4, 0, 0.2, 1)" }}>
+            <div className="glass onboarding-container" style={{ textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", gap: 16, opacity: fade ? 0 : 1, transform: fade ? "scale(0.95)" : "scale(1)", transition: "all .3s cubic-bezier(0.4, 0, 0.2, 1)" }}>
                 <div key={step} className="animate-slide-up-fade" style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 16, width: "100%" }}>
-                    {step === 0 && <SiaAvatar size={160} expression="smile" style={{ boxShadow: "0 0 50px rgba(20,184,166,0.6)", animation: "float 6s ease-in-out infinite", marginBottom: 20 }} />}
-                    <h2 style={{ fontSize: 28, fontWeight: 800, margin: 0, background: "linear-gradient(to right, #fff, #5eead4)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>{steps[step].t}</h2>
-                    <p style={{ fontSize: 16, color: "#aaa", lineHeight: 1.6, margin: 0 }}>{steps[step].d}</p>
+                    {step === 0 && <SiaAvatar size={isMobile ? 180 : 160} expression="smile" style={{ boxShadow: "0 0 50px rgba(20,184,166,0.6)", animation: "float 6s ease-in-out infinite", marginBottom: 20 }} imageClass="onboarding-avatar-large" />}
+                    <h2 className="onboarding-title" style={{ fontWeight: 800, margin: 0, background: "linear-gradient(to right, #fff, #5eead4)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>{steps[step].t}</h2>
+                    <p className="onboarding-desc" style={{ color: "#aaa", lineHeight: 1.6, margin: 0 }}>{steps[step].d}</p>
                     {step !== 0 && steps[step].i}
                 </div>
                 <div style={{ display: "flex", gap: 4, marginTop: 20 }}>
@@ -331,11 +331,23 @@ function Bubble({ role, text, images, onApprove, onDiscard, onRegenerate, send, 
             const j = safeParseJSON(text);
             if (j.structured || j.main) {
                 const s = j.structured || {};
-                const stdKeys = ["hook", "qualify", "context", "value", "bridge", "cta", "disclosure"];
-                const structText = stdKeys.map(k => s[k]).filter(Boolean).join("\n\n") ||
-                    Object.keys(s).filter(k => !stdKeys.includes(k)).map(k => s[k]).filter(Boolean).join("\n\n");
+                // Include ALL keys in the text content, prioritized by stdKeys
+                const stdKeys = ["hook", "qualify", "context", "value_points", "value", "bridge", "cta", "disclosure", "content_structure_reel", "caption_instagram", "strategic_notes"];
+                const otherKeys = Object.keys(s).filter(k => !stdKeys.includes(k) && k !== 'variations' && k !== 'platform');
 
-                const hasValidStruct = !!structText;
+                // Helper to stringify complex values for text copy
+                const stringifyVal = (v) => {
+                    if (typeof v === 'string') return v;
+                    if (Array.isArray(v)) return v.map(i => typeof i === 'object' ? Object.values(i).join(": ") : i).join("\n");
+                    return JSON.stringify(v, null, 2);
+                };
+
+                const structText = [...stdKeys, ...otherKeys]
+                    .map(k => s[k] ? stringifyVal(s[k]) : null)
+                    .filter(Boolean)
+                    .join("\n\n");
+
+                const hasValidStruct = Object.keys(s).length > 0;
                 struct = hasValidStruct ? s : null;
                 content = structText || j.main || text;
                 vars = j.variations;
@@ -368,12 +380,28 @@ function Bubble({ role, text, images, onApprove, onDiscard, onRegenerate, send, 
                         <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
                             {Object.entries(struct).map(([k, v]) => {
                                 if (!v || k === 'variations' || k === 'main' || k === 'platform') return null;
-                                const LABELS = { hook: "🪝 Hook", qualify: "🎯 Qualifica", context: "🧠 Contesto", value: "💎 Valore", bridge: "🌉 Bridge", cta: "📣 CTA", disclosure: "⚠️ Disclosure" };
-                                const COLORS = { hook: "#ec4899", qualify: "#a855f7", context: "#3b82f6", value: "#10b981", bridge: "#f59e0b", cta: "#ef4444", disclosure: "#64748b" };
+                                const LABELS = {
+                                    hook: "🪝 Hook", qualify: "🎯 Qualifica", context: "🧠 Contesto", value: "💎 Valore",
+                                    value_points: "💎 Value Points", bridge: "🌉 Bridge", cta: "📣 CTA", disclosure: "⚠️ Disclosure",
+                                    content_structure_reel: "🎬 Reel Script", caption_instagram: "📸 Caption IG", strategic_notes: "💡 Note Strategiche"
+                                };
+                                const COLORS = {
+                                    hook: "#ec4899", qualify: "#a855f7", context: "#3b82f6", value: "#10b981",
+                                    value_points: "#14b8a6", bridge: "#f59e0b", cta: "#ef4444", disclosure: "#64748b",
+                                    content_structure_reel: "#f43f5e", caption_instagram: "#8b5cf6", strategic_notes: "#6366f1"
+                                };
                                 const label = LABELS[k] || `📝 ${k.charAt(0).toUpperCase() + k.slice(1)}`;
                                 const col = COLORS[k] || "#a5b4fc";
-                                const valStr = typeof v === 'string' ? v : (Array.isArray(v) ? v.join("\n") : JSON.stringify(v, null, 2));
-                                const cleanStr = valStr.replace(/\*\*/g, ""); // Remove bold asterisks
+                                const valStr = typeof v === 'string' ? v : (
+                                    Array.isArray(v) ? v.map(i => {
+                                        if (typeof i === 'object') {
+                                            return Object.entries(i).map(([sk, sv]) => `• ${sk}: ${sv}`).join("\n");
+                                        }
+                                        return typeof i === 'string' ? `• ${i}` : JSON.stringify(i);
+                                    }).join("\n\n")
+                                        : (typeof v === 'object' ? Object.entries(v).map(([sk, sv]) => `**${sk}**: ${sv}`).join("\n") : JSON.stringify(v, null, 2))
+                                );
+                                const cleanStr = valStr.replace(/\*\*/g, ""); // Remove bold asterisks for simple rendering
                                 return <StructBlock key={k} l={label} t={cleanStr} c={col} />;
                             })}
                         </div>
@@ -921,22 +949,7 @@ Concentricrati solo sul 'structured' (MASTER POST).
 
                 {/* ONBOARDING */}
                 {!apiKey && view !== "settings" && (
-                    <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", padding: 24 }}>
-                        <div style={{ maxWidth: 380, width: "100%", textAlign: "center" }}>
-                            <SiaAvatar size={64} style={{ marginBottom: 16, boxShadow: "0 0 30px rgba(20,184,166,0.3)" }} />
-                            <h1 style={{ fontSize: 26, fontWeight: 800, margin: "0 0 6px", letterSpacing: -1, background: "linear-gradient(to right, #fff, #5eead4)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Sia</h1>
-                            <p style={{ color: "#666", fontSize: 14, marginBottom: 32 }}>La tua assistente AI per i social.</p>
-                            <div style={{ background: "#141420", borderRadius: 16, padding: 20, textAlign: "left" }}>
-                                <label style={{ fontSize: 12, fontWeight: 700, color: "#888", textTransform: "uppercase", letterSpacing: .8 }}>Late API Key</label>
-                                <div style={{ display: "flex", gap: 8, marginTop: 8 }}>
-                                    <input value={keyIn} onChange={e => setKeyIn(e.target.value)} onKeyDown={e => e.key === "Enter" && saveKey()} placeholder="sk_..." type="password"
-                                        style={{ flex: 1, padding: "12px 14px", borderRadius: 10, border: "1px solid #252535", background: "#0b0b13", color: "#e0e0e8", fontSize: 14, outline: "none" }} />
-                                    <button onClick={saveKey} style={{ padding: "12px 20px", borderRadius: 10, border: "none", background: "linear-gradient(135deg,#6366f1,#a855f7)", color: "#fff", fontWeight: 700, cursor: "pointer", fontSize: 14 }}>→</button>
-                                </div>
-                                <p style={{ color: "#444", fontSize: 12, marginTop: 10, lineHeight: 1.5 }}>Crea account su <span style={{ color: "#6366f1" }}>getlate.dev</span> → collega i social → copia API Key da Settings</p>
-                            </div>
-                        </div>
-                    </div>
+                    <OnboardingOverlay onComplete={handleOnboardingComplete} isMobile={isMobile} />
                 )}
 
                 {/* CHAT */}
